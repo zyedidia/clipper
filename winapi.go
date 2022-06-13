@@ -56,39 +56,39 @@ func (w *WinApi) Init() error {
 }
 
 func (w *WinApi) ReadAll(reg string) ([]byte, error) {
-	if register != "clipboard" {
+	if reg != "clipboard" {
 		return nil, &ErrInvalidReg{
 			Reg: reg,
 		}
 	}
 	err := waitOpenClipboard()
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 	defer closeClipboard.Call()
 
 	h, _, err := getClipboardData.Call(cfUnicodetext)
 	if h == 0 {
-		return "", err
+		return nil, err
 	}
 
 	l, _, err := globalLock.Call(h)
 	if l == 0 {
-		return "", err
+		return nil, err
 	}
 
 	text := syscall.UTF16ToString((*[1 << 20]uint16)(unsafe.Pointer(l))[:])
 
 	r, _, err := globalUnlock.Call(h)
 	if r == 0 {
-		return "", err
+		return nil, err
 	}
 
 	return []byte(text), nil
 }
 
 func (w *WinApi) WriteAll(reg string, text []byte) error {
-	if register != "clipboard" {
+	if reg != "clipboard" {
 		return &ErrInvalidReg{
 			Reg: reg,
 		}

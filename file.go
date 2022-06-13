@@ -2,11 +2,16 @@ package clipper
 
 import (
 	"io/ioutil"
+	"os"
 	"path/filepath"
 )
 
 type File struct {
 	Dir string
+}
+
+func (fb *File) Init() error {
+	return os.MkdirAll(fb.Dir, os.ModePerm)
 }
 
 func (fb *File) ReadAll(reg string) ([]byte, error) {
