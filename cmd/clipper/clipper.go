@@ -20,10 +20,16 @@ var paste = flag.Bool("paste", false, "paste clipboard contents")
 var cpy = flag.Bool("copy", false, "copy into clipboard")
 var reg = flag.String("reg", "clipboard", "clipboard register to use")
 
+func prepend[T any](c T, cs []T) []T {
+	return append([]T{c}, cs...)
+}
+
 func main() {
 	flag.Parse()
 
-	clip, err := clipper.GetClipboard()
+	clip, err := clipper.GetClipboard(prepend[clipper.Clipboard](&clipper.Custom{
+		Name: "clipper-clip",
+	}, clipper.Clipboards)...)
 	must(err)
 
 	if *cpy {

@@ -11,7 +11,7 @@ Platforms supported:
 * WSL (via `clip.exe`/`powershell.exe`)
 * Android Termux (via `termux-clipboard-set`/`termux-clipboard-get`)
 * Plan9 (via `/dev/snarf`)
-* Anything else (via user-defined `myclip` script)
+* Anything else (via a user-defined script)
 
 Fallback methods:
 
