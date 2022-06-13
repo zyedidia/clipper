@@ -22,8 +22,8 @@ Fallback methods:
 
 ```
 func main() {
-	clip, err := clipper.GetClipboard()
-	must(err)
+    clip, err := clipper.GetClipboard()
+    must(err)
 
     // copy from stdin
     data, err := io.ReadAll(os.Stdin)
