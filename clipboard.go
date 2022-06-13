@@ -6,8 +6,12 @@ import (
 )
 
 type Clipboard interface {
+	// Init initializes the clipboard and returns an error if it is not
+	// accessible
 	Init() error
+	// ReadAll returns the contents of the clipboard register 'reg'
 	ReadAll(reg string) ([]byte, error)
+	// WriteAll writes 'p' to the clipboard register 'reg'
 	WriteAll(reg string, p []byte) error
 }
 
