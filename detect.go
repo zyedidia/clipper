@@ -15,12 +15,22 @@ func (me MultiErr) Error() string {
 	return b.String()
 }
 
+// GetClipboard attempts to find a valid clipboard and returns it. It first
+// checks for a custom `myclip` script, and then for pb, xclip, xsel, wayland,
+// wsl, and termux. If nothing is found, a list of errors is returned along
+// with an initialized internal clipboard.
 func GetClipboard() (clip Clipboard, err error) {
 	var errs MultiErr
 
 	clip = &Custom{
 		Name: "myclip",
 	}
+	if err = clip.Init(); err == nil {
+		return clip, nil
+	}
+	errs = append(errs, err)
+
+	clip = &Pb{}
 	if err = clip.Init(); err == nil {
 		return clip, nil
 	}
@@ -50,7 +60,7 @@ func GetClipboard() (clip Clipboard, err error) {
 	}
 	errs = append(errs, err)
 
-	clip = &Pb{}
+	clip = &Termux{}
 	if err = clip.Init(); err == nil {
 		return clip, nil
 	}
