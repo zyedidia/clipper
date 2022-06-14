@@ -1,7 +1,7 @@
-//go:build windows
+//go:build plan9
 
 package clipper
 
 var Clipboards = []Clipboard{
-	&WinApi{},
+	&Snarf{},
 }

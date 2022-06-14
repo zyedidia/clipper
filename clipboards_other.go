@@ -1,13 +1,11 @@
-//go:build !windows
+//go:build !windows && !darwin && !plan9
 
 package clipper
 
 var Clipboards = []Clipboard{
-	&Pb{},
 	&Xclip{},
 	&Xsel{},
 	&Wayland{},
 	&Wsl{},
 	&Termux{},
-	&Internal{},
 }

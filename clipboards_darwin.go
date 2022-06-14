@@ -1,7 +1,7 @@
-//go:build windows
+//go:build darwin
 
 package clipper
 
 var Clipboards = []Clipboard{
-	&WinApi{},
+	&Pb{},
 }
