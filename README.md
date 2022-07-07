@@ -22,7 +22,7 @@ Fallback methods:
 
 ```
 func main() {
-    clip, err := clipper.GetClipboard()
+    clip, err := clipper.GetClipboard(clipper.Clipboards...)
     must(err)
 
     // copy from stdin
