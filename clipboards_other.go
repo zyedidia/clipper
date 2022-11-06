@@ -3,9 +3,9 @@
 package clipper
 
 var Clipboards = []Clipboard{
+	&Wayland{},
 	&Xclip{},
 	&Xsel{},
-	&Wayland{},
 	&Wsl{},
 	&Termux{},
 }
